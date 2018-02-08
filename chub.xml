@@ -1,0 +1,365 @@
+
+<!--
+theme name:		ChubbyBunnySquad
+version:		1.0
+author:			Tony MacDonell
+email:			tony@teknision.com
+website:		
+license:		creative commons CC-BY-NC-SA
+based on:		https://github.com/mattrixk/es-theme-spare
+
+Full theming documentation: 
+https://github.com/RetroPie/EmulationStation/blob/master/THEMES.md
+-->
+
+<theme>
+	<formatVersion>4</formatVersion>
+
+	<!--
+	These variables are used throughout the theme.
+	-->	
+	<variables>
+
+		<!--
+		General Colors
+		-->	
+		<backgroundColor>000000</backgroundColor>
+		<transparentColor>000000</transparentColor>
+		<textColorBright>ffffff</textColorBright>
+		<textColorDim>111111</textColorDim>
+		<helpColor>333333</helpColor>
+		<textMetadataColor>333333</textMetadataColor>
+		<textMetadataValueColor>ffffff</textMetadataValueColor>
+
+		<!--
+		Asset Paths
+		-->	
+		<bgShimImg>./_inc/images/bg_color.png</bgShimImg>
+		<fontPath>./_inc/fonts/Roboto-Light.ttf</fontPath>
+
+		<!--
+		Font Sizes
+		-->
+		<fontSizeList>0.03</fontSizeList> 
+		<fontSizeMetaData>0.02</fontSizeMetaData>
+		
+		<!--
+		Detail View Positioning
+		-->
+		<posMetadataLeft>0.74</posMetadataLeft>
+		<posMetadataValueLeft>0.75</posMetadataValueLeft>
+	</variables>
+
+	<!-- 
+		SHARED UI ELEMENTS 
+		Everything defined in this view is shared by all views.
+	-->
+	<view name="system, grid, basic, detailed, video">
+		<!-- 
+		This is the background color for all views
+		-->
+		<image name="background">
+			<path>${bgShimImg}</path>
+			<origin>0 0</origin>
+			<pos>0 0</pos>
+			<size>0 0</size>
+			<color>${backgroundColor}</color>
+		</image>
+
+		<!--
+		This component tells you what buttons you can push 
+		to trigger action in the UI.
+
+		We place it in the lower left corner by default.
+		-->
+		<helpsystem name="help">
+			<pos>0 .95</pos>
+			<textColor>${helpColor}</textColor>
+			<iconColor>${helpColor}</iconColor>
+			<fontPath>${fontPath}</fontPath>
+			<fontSize>0.03</fontSize>
+		</helpsystem>
+	</view>
+
+	<!-- 
+		SYSTEM SELECT UI
+		This is the view that lets you select the system you want to use.
+	-->
+	<view name="system">
+	   	<!--
+		The fixed Chubby Bunny in the middle just above 
+		the system select carousel.
+	   	-->
+	   	<image name="chubby_bunny" extra="true">
+			<path>./_inc/images/bg_image_bunny.png</path>
+			<origin>.5 .5</origin>
+			<pos>.5 .3</pos>
+			<size>0 0</size>
+			<color>${textColorBright}</color>
+			<tile>false</tile>
+		</image>
+
+		<!--
+		We want to center the help buttons on the system view.
+	   	-->
+		<helpsystem name="help">
+			<pos>0.23 0.95</pos>
+		</helpsystem>
+
+		<!--
+		This is the component that cycles the systems that the user selects.
+		-->
+		<carousel name="systemcarousel">
+			<type>horizontal</type>
+			<origin>0 0</origin>
+			<pos>0 .6</pos>
+			<size>1 0.2</size>
+			<logoScale>5.5</logoScale>
+			<logoSize>0.2 0.025</logoSize>
+			<color>${backgroundColor}</color>
+			<logoRotation>15</logoRotation>
+			<maxLogoCount>3</maxLogoCount>
+		</carousel>
+
+		<!--
+		This component is populated with data about each system.
+		It shows as: "x Games Available"
+		-->
+		<text name="systemInfo">
+			<pos>0 .51</pos>
+			<backgroundColor>${transparentColor}</backgroundColor>
+			<color>${helpColor}</color>
+			<fontPath>${fontPath}</fontPath>
+			<fontSize>0.02</fontSize>
+		</text>
+	</view>
+
+	<!-- 
+		BASIC VIEW 
+		When a system has games, but no game metadata, this list is shown.
+	-->
+	<view name="basic">
+		<!--
+		This is populated by the logo of the system we are currently browsing.
+		-->
+		<image name="logo">
+			<origin>0.5 0.5</origin>
+			<pos>0.5 0.09</pos>
+			<maxSize>0.4 0.16</maxSize>
+		</image>
+
+		<!--
+		This list is populated with the names of all of the games for the current system.
+		-->
+		<textlist name="gamelist">
+			<selectorColor>${textColorDim}</selectorColor>
+			<selectedColor>${textColorBright}</selectedColor>
+			<primaryColor>${textColorBright}</primaryColor>
+			<secondaryColor>${backgroundColor}</secondaryColor>
+			<fontPath>${fontPath}</fontPath>
+			<pos>0.05 0.2</pos>
+			<size>0.9 0.71</size>
+			<fontSize>${fontSizeList}</fontSize>
+		</textlist>
+	</view>
+
+	<!-- 
+		DETAIL VIEW
+		Contains a game list, and game metadata for the selected game.
+		This layout is shared between the detailed and video views.
+		The only thing different will be an img placeholder or video placeholder.
+	-->
+	<view name="detailed, video">
+		<!--
+		This is populated by the logo of the system we are currently browsing.
+		-->
+		<image name="logo">
+			<origin>0.5 0.5</origin>
+			<pos>0.186 0.14</pos>
+			<maxSize>0.33 0.19</maxSize>
+		</image>
+
+		<!--
+		This list is populated with the names of all of the games for the current system.
+		-->
+		<textlist name="gamelist">
+			<selectorColor>${textColorDim}</selectorColor>
+			<selectedColor>${textColorBright}</selectedColor>
+			<primaryColor>${textColorBright}</primaryColor>
+			<secondaryColor>${backgroundColor}</secondaryColor>
+			<fontPath>${fontPath}</fontPath>
+			<pos>0.02 0.25</pos>
+			<size>0.33 0.64</size>
+			<fontSize>${fontSizeList}</fontSize>
+			<horizontalMargin>0.01</horizontalMargin>
+		</textlist>
+	
+		<!--
+		Defines text settings for all of the meta data label fields.
+		-->	
+		<text name="md_lbl_rating, md_lbl_releasedate, md_lbl_developer, md_lbl_publisher, md_lbl_genre, md_lbl_players, md_lbl_lastplayed, md_lbl_playcount">
+			<color>${textMetadataColor}</color>
+			<forceUppercase>1</forceUppercase>
+			<fontPath>${fontPath}</fontPath>
+			<fontSize>${fontSizeMetaData}</fontSize>
+			<size>0.24 0.01</size>
+		</text>
+
+		<!--
+		Defines text settings for all of the meta data value fields.
+		-->	
+		<text name="md_developer, md_publisher, md_genre, md_players, md_playcount">
+			<color>${textMetadataValueColor}</color>
+			<forceUppercase>0</forceUppercase>
+			<fontPath>${fontPath}</fontPath>
+			<fontSize>${fontSizeMetaData}</fontSize>
+			<size>0.23 0.02</size>
+		</text>
+	
+		<!--
+		Defines text settings for all of the meta data datetime value fields.
+		-->	
+		<datetime name="md_releasedate, md_lastplayed">
+			<color>${textMetadataValueColor}</color>
+			<forceUppercase>0</forceUppercase>
+			<fontPath>${fontPath}</fontPath>
+			<fontSize>${fontSizeMetaData}</fontSize>
+			<size>0.23 0.02</size>
+		</datetime>
+
+		<!-- POSITION METADATA -->
+
+		<!-- Rating -->
+		<text name="md_lbl_rating">
+			<pos>${posMetadataLeft} 0.04</pos>
+		</text>
+
+		<rating name="md_rating">
+			<pos>${posMetadataValueLeft} 0.07</pos>
+			<size>0.23 0.03</size>
+		</rating>
+
+		<!-- Number of Players -->
+		<text name="md_lbl_players">
+			<pos>${posMetadataLeft} 0.12</pos>
+		</text>
+
+		<text name="md_players">
+			<pos>${posMetadataValueLeft} 0.14</pos>
+		</text>
+
+		<!-- Genre -->
+		<text name="md_lbl_genre">
+			<pos>${posMetadataLeft} 0.18</pos>
+		</text>
+
+		<text name="md_genre">
+			<pos>${posMetadataValueLeft} 0.20</pos>
+		</text>
+
+		<!-- Developer -->
+		<text name="md_lbl_developer">
+			<pos>${posMetadataLeft} 0.24</pos>
+		</text>
+
+		<text name="md_developer">
+			<pos>${posMetadataValueLeft} 0.26</pos>
+		</text>
+
+		<!-- Publisher -->
+		<text name="md_lbl_publisher">
+			<pos>${posMetadataLeft} 0.30</pos>
+		</text>
+
+		<text name="md_publisher">
+			<pos>${posMetadataValueLeft} 0.32</pos>
+		</text>
+
+		<!-- Release Date -->
+		<text name="md_lbl_releasedate">
+			<pos>${posMetadataLeft} 0.36</pos>
+		</text>
+
+		<datetime name="md_releasedate">
+			<pos>${posMetadataValueLeft} 0.38</pos>
+		</datetime>
+
+		<!-- Times Played -->
+		<text name="md_lbl_playcount">
+			<pos>${posMetadataLeft} 0.42</pos>
+		</text>
+
+		<text name="md_playcount">
+			<pos>${posMetadataValueLeft} 0.44</pos>
+		</text>
+
+		<!-- Last Played -->
+		<text name="md_lbl_lastplayed">
+			<pos>${posMetadataLeft} 0.48</pos>
+		</text>
+
+		<datetime name="md_lastplayed">
+			<pos>${posMetadataValueLeft} 0.50</pos>
+		</datetime>
+
+		<!--
+		This is populated with a description of the game.
+		-->	
+		<text name="md_description">
+			<pos>0.38 0.68</pos>
+			<size>0.60 0.21</size>
+			<color>${textColorBright}</color>
+			<fontPath>${fontPath}</fontPath>
+			<fontSize>${fontSizeMetaData}</fontSize>
+			<alignment>left</alignment>
+			<forceUppercase>0</forceUppercase>
+			<lineSpacing>1.6</lineSpacing>
+		</text>
+	</view>
+
+	<!--
+		DETAILED VIEW
+		This is a detail view that shows the game's feature image.
+	-->
+	<view name="detailed">
+		<!--
+		This is populated with the poster image for the selected game.
+		-->
+		<image name="md_image">
+			<origin>0.5 0.5</origin>
+			<pos>0.545 0.33</pos>
+			<maxSize>0.33 0.58</maxSize>
+		</image>
+	</view>	
+
+	<!--
+		VIDEO VIEW
+		This is a detail view that shows the game's feature video.
+	-->
+	<view name="video">
+		<!--
+		This is populated with the poster video for the selected game.
+		-->
+		<image name="md_video">
+			<origin>0.5 0.5</origin>
+			<pos>0.545 0.33</pos>
+			<maxSize>0.33 0.58</maxSize>
+		</image>
+	</view>	
+
+	<!-- 
+	GRID VIEW
+	Not currently available, but coming supposedly.
+	-->
+	<view name="grid">
+		<!--
+		This is populated by the logo of the system we are currently browsing.
+		-->
+		<image name="logo">
+			<origin>0.5 0.5</origin>
+			<pos>0.5 0.09</pos>
+			<maxSize>0.4 0.16</maxSize>
+		</image>
+	</view>
+
+</theme>
