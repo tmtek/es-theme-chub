@@ -12,13 +12,7 @@
 	UNIVERSAL OVERRIDES
   -->
   <view name="system, grid, basic, detailed, video">
-	  	<!--
-		We specify the system specific log to use.
-		This is used in the system carousel, and in the various detail views.
-	 	-->
-    <image name="logo">
-      <path>./system.svg</path>
-    </image>
+	 
   </view>
  
 </theme>
